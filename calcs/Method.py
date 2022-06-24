@@ -2,6 +2,7 @@ from abc import abstractmethod
 from attr import dataclass
 import pandas as pd
 from sympy import lambdify, symbols
+from pylatex import Document, Section, Subsection, Tabular, Math, Figure, Alignat
 
 class Method:
     table: dict
@@ -14,6 +15,10 @@ class Method:
         x = symbols('x')
         self.fn = lambdify(x, fn, ["numpy"])
 
+    @abstractmethod    
+    def to_info(self):
+        pass
+
     def table_init(self, params):
         self.table = dict((key, []) for key in params)
 
@@ -23,10 +28,6 @@ class Method:
 
     def dataframe(self):
         return pd.DataFrame(self.table)
-
-    @abstractmethod    
-    def to_info(self):
-        pass
 
     def abs_err(self, a, b):
         return abs(b - a)

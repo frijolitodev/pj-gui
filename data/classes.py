@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-
+import typing
 
 @dataclass
 class Dims:
@@ -10,3 +10,8 @@ class Dims:
 class MethodInfo:
     disp: str
     slug: str
+
+@dataclass 
+class LatexSection:
+    section: str
+    data: typing.Any

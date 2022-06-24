@@ -1,10 +1,10 @@
 from abc import abstractmethod
 from tkinter import *
-from tkinter import messagebox
 
 from calcs.Method import Method
 from calcs.MullerMethod import MullerMethod
 from calcs.NewtonMethod import NewtonMethod
+from calcs.RegulaFalsiMethod import RegulaFalsiMethod
 
 from calcs.SecantMethod import SecantMethod
 
@@ -27,24 +27,24 @@ class SecantPanel(MainPanel):
     def __init__(self, root, frame, onLoad):
         MainPanel.__init__(self, root, frame, "Secante", onLoad)
 
-        Label(self.frame, text="Valor para xa:").grid(row=0, column=1)
-        self.xaEntry = Entry(self.frame, relief="raised")
-        self.xaEntry.grid(row=0,column=2,columnspan=3)
+        Label(self.frame, text="Valor para xa:").grid(row=1, column=1)
+        self.xa_entry = Entry(self.frame, relief="raised")
+        self.xa_entry.grid(row=1,column=2,columnspan=3)
 
-        Label(self.frame, text="Valor para xb:").grid(row=1, column=1)
-        self.xbEntry = Entry(self.frame, relief="raised")
-        self.xbEntry.grid(row=1, column=2,columnspan=3)
+        Label(self.frame, text="Valor para xb:").grid(row=2, column=1)
+        self.xb_entry = Entry(self.frame, relief="raised")
+        self.xb_entry.grid(row=2, column=2,columnspan=3)
 
-        Label(self.frame, text="Tolerancia:").grid(row=2, column=1)
-        self.tolEntry = Entry(self.frame, relief="raised")
-        self.tolEntry.grid(row=2, column=2, columnspan=3)
+        Label(self.frame, text="Tolerancia:").grid(row=3, column=1)
+        self.tol_entry = Entry(self.frame, relief="raised")
+        self.tol_entry.grid(row=3, column=2, columnspan=3)
 
     def calc_init(self, params):
         fn = params
 
-        xa = float(self.xaEntry.get())
-        xb = float(self.xbEntry.get())
-        tol = float(self.tolEntry.get())
+        xa = float(self.xa_entry.get())
+        xb = float(self.xb_entry.get())
+        tol = float(self.tol_entry.get())
 
         self.method_calc = SecantMethod(fn, xa, xb, tol)
 
@@ -88,7 +88,26 @@ class RegulaFalsiPanel(MainPanel):
     def __init__(self, root, frame, onLoad):
         MainPanel.__init__(self, root, frame, "Regula Falsi", onLoad)
 
-        self.frame.config(bg="pink")
+        Label(self.frame, text="Valor para xa:").grid(row=1, column=1)
+        self.xa_entry = Entry(self.frame, relief="raised")
+        self.xa_entry.grid(row=1,column=2,columnspan=3)
+
+        Label(self.frame, text="Valor para xb:").grid(row=2, column=1)
+        self.xb_entry = Entry(self.frame, relief="raised")
+        self.xb_entry.grid(row=2, column=2,columnspan=3)
+
+        Label(self.frame, text="Tolerancia:").grid(row=3, column=1)
+        self.tol_entry = Entry(self.frame, relief="raised")
+        self.tol_entry.grid(row=3, column=2, columnspan=3)
+
+    def calc_init(self, params):
+        fn = params
+
+        xa = float(self.xa_entry.get())
+        xb = float(self.xb_entry.get())
+        tol = float(self.tol_entry.get())
+
+        self.method_calc = RegulaFalsiMethod(fn, xa, xb, tol)
 
 class NewtonPanel(MainPanel):
     def __init__(self, root, frame, onLoad):

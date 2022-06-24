@@ -43,7 +43,7 @@ class MainWindow:
             - We grid that item in it's parent (window or root)
         """
         sideDims = Dims(self.width / 6, self.height)
-        self.sideFrame = Frame(self.root, height=sideDims.height, width=sideDims.width, bg="green")
+        self.sideFrame = Frame(self.root, height=sideDims.height, width=sideDims.width)
         
         self.sideFrame.columnconfigure(0, weight=1, minsize=sideDims.width)
         
@@ -60,7 +60,7 @@ class MainWindow:
 
         # As we did with side panel, this one will go with 2 rows and all the remaining cols
         topDims = Dims((self.width / 6 ) * 5, (self.height / 6) * 2)
-        self.topFrame = Frame(self.root, bg="red")
+        self.topFrame = Frame(self.root)
 
         # Top Panel has 3 rows and 6 cols
         for i in range(3):
@@ -83,7 +83,7 @@ class MainWindow:
 
         # As we did with side panel, this one will go with two rows and all the remaining rows and cols
         mainDims = Dims((self.width / 6 ) * 5, (self.height / 6) * 4)
-        self.mainFrame = Frame(self.root, bg="yellow")
+        self.mainFrame = Frame(self.root)
 
         for i in range(5):
             self.mainFrame.rowconfigure(i, weight=1, minsize=mainDims.height / 5)
