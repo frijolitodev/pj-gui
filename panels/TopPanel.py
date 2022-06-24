@@ -12,14 +12,14 @@ class TopPanel:
         
         Label(self.frame, text="Ecuacion:").grid(row=1, column=2, columnspan=2)
 
-        self.fnEntry = Entry(self.frame, relief="raised")
-        self.fnEntry.grid(row=2, column=1, columnspan=3)
+        self.fn_entry = Entry(self.frame, relief="raised")
+        self.fn_entry.grid(row=2, column=1, columnspan=3)
         
         self.reportGenerator = Button(
             self.frame,
             text="Calcular",
             relief="raised",
-            command= lambda: fn_invoker(self.fnEntry.get())
+            command= lambda: fn_invoker(self.fn_entry.get())
         ).grid(row=2, column=4)
 
     def modify_title(self, newTitle):

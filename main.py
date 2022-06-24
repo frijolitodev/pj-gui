@@ -1,11 +1,27 @@
-# from window.MainWindow import *
+from window.MainWindow import *
 
-# mainTask = MainWindow()
-# mainTask.start()
+mainTask = MainWindow()
+mainTask.start()
 
-from calcs.MullerMethod import MullerMethod
+# import ast
+# from numpy import *
+# from sympy import *
 
-m = MullerMethod((lambda x: x * x ** 0.5 + 10 * x - 20), 4.5, 5.5, 5, 0.0001)
+# # x = symbols('x')
+# # f = "x ** 2"
 
-for item in m.to_info():
-    print(item)
+# # fl = lambdify(x, f)
+
+# # f = (x) ** 2
+
+# # print(f.diff(x))
+
+# # t = Derivative(fl, x)
+
+# l = lambda x : eval("x ** 2", { "x": x })
+
+# x = symbols('x')
+# f = lambdify(x,l , ["numpy"])
+
+# print(f(x).diff(x))
+# print(f(2))

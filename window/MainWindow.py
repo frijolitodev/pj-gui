@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import messagebox
 from panels.MainPanel import MullerPanel, NewtonPanel, RegulaFalsiPanel, SecantPanel
 
 from panels.SidePanel import SidePanel
@@ -28,7 +29,7 @@ class MainWindow:
         # Config panels
         self.sidepanel_init()
         self.toppanel_init()
-        self.mainpanel_lifecycle("secante")
+        self.mainpanel_lifecycle(MethodInfo("Secante", "secante"))
         
     def start(self):
         self.root.mainloop()
@@ -52,7 +53,7 @@ class MainWindow:
         self.sideFrame.grid(row=0, column=0, rowspan=6, columnspan=1)
 
         # Side Panel instantiation
-        self.sidePanel = SidePanel(self.root, self.sideFrame, self.mainpanel_invoker)
+        self.sidePanel = SidePanel(self.root, self.sideFrame, self.mainpanel_lifecycle)
 
     def toppanel_init(self):
         # Top Panel data
@@ -73,7 +74,7 @@ class MainWindow:
         # Top Panel instantiation
         self.topPanel = TopPanel(self.root, self.topFrame, "NO-DEFAULT", self.method_invoker)
 
-    def mainpanel_lifecycle(self, slug):
+    def mainpanel_lifecycle(self, method):
         # Main Panel data
 
         # Frame will be destroyed every time it has already been created
@@ -84,8 +85,8 @@ class MainWindow:
         mainDims = Dims((self.width / 6 ) * 5, (self.height / 6) * 4)
         self.mainFrame = Frame(self.root, bg="yellow")
 
-        for i in range(3):
-            self.mainFrame.rowconfigure(i, weight=1, minsize=mainDims.height / 3)
+        for i in range(5):
+            self.mainFrame.rowconfigure(i, weight=1, minsize=mainDims.height / 5)
 
         for i in range(6):
             self.mainFrame.columnconfigure(i, weight=1, minsize=mainDims.width / 6)
@@ -93,7 +94,7 @@ class MainWindow:
         self.mainFrame.grid(row=2, column=1, sticky="nsew", rowspan=4, columnspan=5)
 
         # Top Panel instantiation
-        self.mainPanel = self.mainpanel_invoker(MethodInfo("Metodo de la Secante", "secant"))
+        self.mainPanel = self.mainpanel_invoker(method)
 
     def mainpanel_invoker(self, method):
         # Init an object for the new invoked panel
@@ -107,6 +108,9 @@ class MainWindow:
             return SecantPanel(self.root, self.mainFrame, lambda: self.topPanel.modify_title(method.disp))
     
     def method_invoker(self, fn_string):
-        fn = lambda x: eval(fn_string, { "x": x })
-
-        self.mainPanel.calc_init(fn)
+        try:
+            self.mainPanel.calc_init(fn_string)
+        except ValueError as ve:
+            messagebox.showerror("Error de datos", "No es posible convertir algun dato ingresado, verifica por favor")
+        except Exception as e:
+            messagebox.showerror("Error de operacion", f"No es posible procesar tu ecuacion con los datos solicitados, el error de python es: {e}")
